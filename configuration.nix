@@ -19,13 +19,6 @@
   networking = {
     hostName = "likhner-pc";
     networkmanager.enable = true;
-    enableIPv6 = false;
-    useDHCP = false;
-    interfaces = {
-      enp3s0 = {
-        useDHCP = true;
-      };
-    };
     firewall = {
       enable = true;
       allowPing = false;
@@ -57,8 +50,8 @@
       config.pipewire = {
         "context.properties" = {
           "default.clock.allowed-rates" = [ 44100 48000 96000 192000 ];
-          "default.clock.quantum-limit" = 1024;
-          "default.clock.max-quantum" = 1024;
+          "default.clock.quantum-limit" = 128;
+          "default.clock.max-quantum" = 128;
         };
       };
     };
@@ -85,5 +78,5 @@
     __GL_SHADER_DISK_CACHE_PATH = "/tmp";
   };
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
 }

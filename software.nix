@@ -12,6 +12,7 @@ in {
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
+    unstable._1password-gui
     appimage-run
     aspellDicts.ru
     bash-completion
