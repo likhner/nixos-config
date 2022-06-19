@@ -9,7 +9,14 @@ in {
   };
 
   nixpkgs.config.allowUnfree = true;
-  programs.steam.enable = true;
+  
+  programs = {
+    steam.enable = true;
+    gnupg.agent = {
+      enable = true;
+      pinentryFlavor = "gnome3";
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     unstable._1password-gui
@@ -25,13 +32,12 @@ in {
     unstable.google-chrome
     keepassxc
     mc
-    minecraft
     nettools
     nmap
     openssh
     p7zip
     poedit
-    remmina
+    unstable.polymc
     spotify
     steam
     steam-run-native

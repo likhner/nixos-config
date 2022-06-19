@@ -50,8 +50,8 @@
       config.pipewire = {
         "context.properties" = {
           "default.clock.allowed-rates" = [ 44100 48000 96000 192000 ];
-          "default.clock.quantum-limit" = 128;
-          "default.clock.max-quantum" = 128;
+          "default.clock.quantum-limit" = 1024;
+          "default.clock.max-quantum" = 1024;
         };
       };
     };
