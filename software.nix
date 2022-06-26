@@ -9,13 +9,10 @@ in {
   };
 
   nixpkgs.config.allowUnfree = true;
-  
+
   programs = {
     steam.enable = true;
-    gnupg.agent = {
-      enable = true;
-      pinentryFlavor = "gnome3";
-    };
+    gnupg.agent.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

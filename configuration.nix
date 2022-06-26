@@ -3,6 +3,8 @@
 {
   imports =
     [
+      <nixos-hardware/common/cpu/intel/kaby-lake/default.nix>
+      <nixos-hardware/common/pc/ssd/default.nix>
       ./hardware-configuration.nix
       ./software.nix
       ./gnome.nix
@@ -59,9 +61,14 @@
   };
 
   hardware = {
-    opengl.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
     pulseaudio.enable = false;
-    cpu.intel.updateMicrocode = true;
   };
 
   users.users.likhner = {

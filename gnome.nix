@@ -14,7 +14,11 @@
   };
 
   qt5.platformTheme = "gnome";
-  programs.seahorse.enable = true;
+
+  programs = {
+    seahorse.enable = true;
+    gnupg.agent.pinentryFlavor = "gnome3";
+  };
 
   environment.systemPackages = with pkgs; [
     baobab
@@ -24,6 +28,7 @@
     qgnomeplatform
     gnome.eog
     gnome.file-roller
+    gnome.geary
     gnome.gnome-calculator
     gnome.gnome-control-center
     gnome.gnome-disk-utility
