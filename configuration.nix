@@ -27,13 +27,22 @@
     };
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "lv_LV.utf8";
+      LC_IDENTIFICATION = "lv_LV.utf8";
+      LC_MEASUREMENT = "lv_LV.utf8";
+      LC_MONETARY = "lv_LV.utf8";
+      LC_NAME = "lv_LV.utf8";
+      LC_NUMERIC = "lv_LV.utf8";
+      LC_PAPER = "lv_LV.utf8";
+      LC_TELEPHONE = "lv_LV.utf8";
+      LC_TIME = "lv_LV.utf8";
+    };
   };
 
+  sound.enable = true;
   security.rtkit.enable = true;
 
   services = {
