@@ -50,7 +50,9 @@
       enable = true;
       layout = "us";
       videoDrivers = [ "nvidia" ];
-      exportConfiguration = true;
+      screenSection = ''
+        Option "CustomEDID" "HDMI-0:/home/likhner/.local/share/EDID.bin"
+      '';
     };
     pipewire = {
       enable = true;

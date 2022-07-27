@@ -34,6 +34,7 @@ in {
     openssh
     p7zip
     poedit
+    rustdesk
     unstable.polymc
     spotify
     steam
