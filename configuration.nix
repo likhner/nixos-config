@@ -88,7 +88,13 @@
     extraGroups = [ "wheel" "networkmanager" "nvidia" "vboxusers" "docker" ];
   };
 
-  nix.autoOptimiseStore = true;
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 8d";
+    };
+    settings.auto-optimise-store = true;
+  };
 
   environment.variables = {
     __GL_THREADED_OPTIMIZATIONS = "1";
