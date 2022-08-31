@@ -3,8 +3,8 @@
 {
   imports =
     [
-      <nixos-hardware/common/cpu/intel/kaby-lake/default.nix>
-      <nixos-hardware/common/pc/ssd/default.nix>
+      "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/common/cpu/intel/kaby-lake/default.nix"
+      "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/common/pc/ssd/default.nix"
       ./hardware-configuration.nix
       ./software.nix
       ./gnome.nix
