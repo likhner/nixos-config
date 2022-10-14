@@ -28,7 +28,6 @@
     qgnomeplatform
     gnome.eog
     gnome.file-roller
-    gnome.geary
     gnome.gnome-calculator
     gnome.gnome-control-center
     gnome.gnome-disk-utility

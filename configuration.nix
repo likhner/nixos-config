@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
     [
-      "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/common/cpu/intel/kaby-lake/default.nix"
-      "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/common/pc/ssd/default.nix"
       ./hardware-configuration.nix
       ./software.nix
       ./gnome.nix
+      ./home.nix
     ];
 
   boot.loader = {
@@ -27,22 +26,6 @@
     };
   };
 
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "lv_LV.utf8";
-      LC_IDENTIFICATION = "lv_LV.utf8";
-      LC_MEASUREMENT = "lv_LV.utf8";
-      LC_MONETARY = "lv_LV.utf8";
-      LC_NAME = "lv_LV.utf8";
-      LC_NUMERIC = "lv_LV.utf8";
-      LC_PAPER = "lv_LV.utf8";
-      LC_TELEPHONE = "lv_LV.utf8";
-      LC_TIME = "lv_LV.utf8";
-    };
-  };
-
-  sound.enable = true;
   security.rtkit.enable = true;
 
   services = {
@@ -69,6 +52,7 @@
       };
     };
     ntp.enable = true;
+    fstrim.enable = lib.mkDefault true;
   };
 
   hardware = {
@@ -76,7 +60,10 @@
       enable = true;
       extraPackages = with pkgs; [
         vaapiVdpau
-        libvdpau-va-gl
+      ];
+      driSupport32Bit = true;
+      extraPackages32 = with pkgs; [
+        vaapiVdpau
       ];
     };
     pulseaudio.enable = false;
@@ -85,7 +72,7 @@
   users.users.likhner = {
     isNormalUser = true;
     home = "/home/likhner";
-    extraGroups = [ "wheel" "networkmanager" "nvidia" "vboxusers" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "nvidia" "docker" ];
   };
 
   nix = {
@@ -96,11 +83,8 @@
     settings.auto-optimise-store = true;
   };
 
-  environment.variables = {
-    __GL_THREADED_OPTIMIZATIONS = "1";
-    __GL_SHADER_DISK_CACHE = "1";
-    __GL_SHADER_DISK_CACHE_PATH = "/tmp";
-  };
+  # workaround nixpkgs#169245, breaks video playback in unstable.tdesktop
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "vdpau";
 
   system.stateVersion = "22.05";
 }
