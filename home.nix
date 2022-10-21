@@ -13,8 +13,8 @@ in
       git = {
         enable = true;
         lfs.enable = true;
-        userEmail = "Arthur Likhner";
-        userName = "60031799+likhner@users.noreply.github.com";
+        userEmail = "60031799+likhner@users.noreply.github.com";
+        userName = "Arthur Likhner";
         signing = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILSve0s4fmuuVAdHfDhDjvt22gZuTMTDo8rdmMcQaan";
           signByDefault = true;
@@ -35,7 +35,7 @@ in
           "mergetool \"vscode\"".cmd = "code --wait $MERGED";
           core = {
             autocrlf = "input";
-            editor = "core --wait";
+            editor = "code --wait";
           };
         };
       };
@@ -91,39 +91,6 @@ in
             "editor.tabSize": 2,
             "languageToolLinter.serviceType": "public"
           }
-        '';
-      };
-      poedit = {
-        target = ".config/poedit/config";
-        text = ''
-          version=3.0.1
-          compile_mo=0
-          enable_spellchecking=1
-          sort_untrans_first=1
-          sort_errors_first=1
-          display_lines=1
-        '';
-      };
-      keepassxc = {
-        target = ".config/keepassxc/keepassxc.ini";
-        text = ''
-          [General]
-          ConfigVersion=1
-          RememberLastKeyFiles=false
-
-          [GUI]
-          ApplicationTheme=dark
-          TrayIconAppearance=monochrome-light
-
-          [PasswordGenerator]
-          Length=30
-
-          [Security]
-          ClearClipboardTimeout=3
-          IconDownloadFallback=true
-          LockDatabaseMinimize=true
-          PasswordEmptyPlaceholder=true
-          Security_HideNotes=true
         '';
       };
     };

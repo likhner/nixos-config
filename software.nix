@@ -21,13 +21,14 @@ in {
     git
     gnupg
     unstable.google-chrome
+    helvum
     keepassxc
     mc
     nettools
     openssh
     p7zip
     poedit
-    unstable.polymc
+    unstable.prismlauncher
     spotify
     steam
     steam-run-native

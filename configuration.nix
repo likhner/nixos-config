@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
     [
+      <nixos-hardware/common/pc/ssd/default.nix>
       ./hardware-configuration.nix
       ./software.nix
       ./gnome.nix
@@ -52,7 +53,6 @@
       };
     };
     ntp.enable = true;
-    fstrim.enable = lib.mkDefault true;
   };
 
   hardware = {
