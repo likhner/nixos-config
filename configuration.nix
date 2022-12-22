@@ -15,7 +15,21 @@
     efi.canTouchEfiVariables = true;
   };
 
-  system.autoUpgrade.enable = true;
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "lv_LV.UTF-8";
+      LC_IDENTIFICATION = "lv_LV.UTF-8";
+      LC_MEASUREMENT = "lv_LV.UTF-8";
+      LC_MONETARY = "lv_LV.UTF-8";
+      LC_NAME = "lv_LV.UTF-8";
+      LC_NUMERIC = "lv_LV.UTF-8";
+      LC_PAPER = "lv_LV.UTF-8";
+      LC_TELEPHONE = "lv_LV.UTF-8";
+      LC_TIME = "lv_LV.UTF-8";
+    };
+  };
+
   time.timeZone = "Europe/Riga";
 
   networking = {
@@ -83,8 +97,11 @@
     settings.auto-optimise-store = true;
   };
 
-  # workaround nixpkgs#169245, breaks video playback in unstable.tdesktop
+  # workaround nixpkgs#169245
   environment.sessionVariables.LIBVA_DRIVER_NAME = "vdpau";
 
-  system.stateVersion = "22.05";
+  system = {
+    stateVersion = "22.11";
+    autoUpgrade.enable = true;
+  };
 }

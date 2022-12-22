@@ -13,6 +13,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     unstable._1password-gui
+    unstable.amass
     aspellDicts.ru
     bash-completion
     bind
@@ -29,6 +30,7 @@ in {
     p7zip
     poedit
     unstable.prismlauncher
+    remmina
     spotify
     steam
     steam-run-native

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz";
 in
 {
   imports = [
@@ -43,11 +43,8 @@ in
         enable = true;
         matchBlocks = {
           "cartman" = {
-            hostname = "100.78.121.20";
-            user = "likhner";
-            extraOptions = {
-              PreferredAuthentications = "publickey";
-            };
+            hostname = "100.126.49.4";
+            user = "ubuntu";
           };
           "github.com" = {
             hostname = "github.com";
@@ -59,40 +56,50 @@ in
           };
         };
       };
+      bash = {
+        enable = true;
+        shellAliases = {
+          share = ''function _e(){ curl -F "expires=24" -F "file=@$1" https://0x0.st; };_e'';
+          short = ''function _e(){ curl -F "url=$1" https://shorta.link; };_e'';
+        };
+      };
     };
     dconf.settings = {
       "org/gnome/mutter" = {
         check-alive-timeout = 60000;
       };
     };
-    home.file = {
-      edid = {
-        target = ".local/share/EDID.bin";
-        source = pkgs.fetchurl {
-          url = "https://gist.github.com/likhner/096845ee722cad653b87469885645ff5/raw/EDID.bin";
-          sha256 = "0dkl0znrjpk7xp321s7h929a8gksl40d2vy7r49jsd9n605h6zl4";
-          name = "EDID.bin";
+    home = {
+      file = {
+        edid = {
+          target = ".local/share/EDID.bin";
+          source = pkgs.fetchurl {
+            url = "https://gist.github.com/likhner/096845ee722cad653b87469885645ff5/raw/EDID.bin";
+            sha256 = "0dkl0znrjpk7xp321s7h929a8gksl40d2vy7r49jsd9n605h6zl4";
+            name = "EDID.bin";
+          };
+        };
+        vscode = {
+          target = ".config/Code/User/settings.json";
+          text = ''
+            {
+              "workbench.colorTheme": "Monokai Dimmed",
+              "workbench.iconTheme": "vs-minimal",
+              "files.autoSave": "afterDelay",
+              "editor.wordWrap": "on",
+              "files.eol": "\n",
+              "update.showReleaseNotes": false,
+              "workbench.startupEditor": "none",
+              "editor.inlineSuggest.enabled": true,
+              "git.enableSmartCommit": true,
+              "git.autofetch": true,
+              "editor.tabSize": 2,
+              "languageToolLinter.serviceType": "public"
+            }
+          '';
         };
       };
-      vscode = {
-        target = ".config/Code/User/settings.json";
-        text = ''
-          {
-            "workbench.colorTheme": "Monokai Dimmed",
-            "workbench.iconTheme": "vs-minimal",
-            "files.autoSave": "afterDelay",
-            "editor.wordWrap": "on",
-            "files.eol": "\n",
-            "update.showReleaseNotes": false,
-            "workbench.startupEditor": "none",
-            "editor.inlineSuggest.enabled": true,
-            "git.enableSmartCommit": true,
-            "git.autofetch": true,
-            "editor.tabSize": 2,
-            "languageToolLinter.serviceType": "public"
-          }
-        '';
-      };
+      stateVersion = "22.11";
     };
   };
 }
