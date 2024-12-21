@@ -3,7 +3,10 @@
 {
   services = {
     xserver = {
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = false;
+      };
       desktopManager.gnome.enable = true;
     };
     gnome = {
@@ -13,31 +16,35 @@
     gvfs.enable = true;
   };
 
-  qt5.platformTheme = "gnome";
+  qt.platformTheme = "gnome";
+  programs.seahorse.enable = true;
 
-  programs = {
-    seahorse.enable = true;
-    gnupg.agent.pinentryFlavor = "gnome3";
+  environment = {
+    gnome.excludePackages = with pkgs; [
+      gnome-backgrounds
+      gnome-online-accounts
+      gnome-remote-desktop
+      gnome-tour
+      gnome-user-docs
+    ];
+    systemPackages = with pkgs; [
+      baobab
+      eog
+      evince
+      file-roller
+      gnome-calculator
+      gnome-console
+      gnome-control-center
+      gnome-disk-utility
+      gnome-system-monitor
+      gnome-text-editor
+      gnome-tweaks
+      nautilus
+      pinentry-gnome3
+      qgnomeplatform
+      seahorse
+      gnomeExtensions.appindicator
+      gnomeExtensions.removable-drive-menu
+    ];
   };
-
-  environment.systemPackages = with pkgs; [
-    baobab
-    evince
-    gnome-console
-    gnome-text-editor
-    qgnomeplatform
-    gnome.eog
-    gnome.file-roller
-    gnome.gnome-calculator
-    gnome.gnome-control-center
-    gnome.gnome-disk-utility
-    gnome.gnome-system-monitor
-    gnome.gnome-tweaks
-    gnome.nautilus
-    gnome.seahorse
-    gnomeExtensions.appindicator
-    gnomeExtensions.places-status-indicator
-    gnomeExtensions.removable-drive-menu
-    gnomeExtensions.sound-output-device-chooser
-  ];
 }

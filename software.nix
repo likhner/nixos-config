@@ -4,17 +4,20 @@ let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
 in {
   nixpkgs.config.allowUnfree = true;
-  services.tailscale.enable = true;
 
   programs = {
     steam.enable = true;
     gnupg.agent.enable = true;
+    _1password-gui = {
+      enable = true;
+      package = unstable.pkgs._1password-gui;
+    };
   };
 
   environment.systemPackages = with pkgs; [
-    unstable._1password-gui
-    unstable.amass
+    aspellDicts.en
     aspellDicts.ru
+    aspellDicts.lv
     bash-completion
     bind
     exfat
@@ -23,30 +26,23 @@ in {
     gnupg
     unstable.google-chrome
     helvum
-    keepassxc
     mc
     nettools
     openssh
     p7zip
-    poedit
     unstable.prismlauncher
-    remmina
-    spotify
-    steam
-    steam-run-native
     unstable.tdesktop
-    transmission-gtk
     unrar
     unzip
     vlc
     wget
     whois
+    wireguard-tools
     (unstable.vscode-with-extensions.override {
       vscodeExtensions = with unstable.vscode-extensions; [
         ms-azuretools.vscode-docker
         github.codespaces
         github.copilot
-        eamodio.gitlens
         davidlday.languagetool-linter
         yzhang.markdown-all-in-one
         davidanson.vscode-markdownlint

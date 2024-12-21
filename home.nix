@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
 in
 {
   imports = [
@@ -14,7 +14,7 @@ in
         enable = true;
         lfs.enable = true;
         userEmail = "60031799+likhner@users.noreply.github.com";
-        userName = "Arthur Likhner";
+        userName = "Artūrs Lihners";
         signing = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILSve0s4fmuuVAdHfDhDjvt22gZuTMTDo8rdmMcQaan";
           signByDefault = true;
@@ -42,12 +42,16 @@ in
       ssh = {
         enable = true;
         matchBlocks = {
-          "cartman" = {
-            hostname = "100.126.49.4";
-            user = "ubuntu";
-          };
           "github.com" = {
             hostname = "github.com";
+            user = "git";
+            identityFile = "/home/likhner/.ssh/github";
+            extraOptions = {
+              PreferredAuthentications = "publickey";
+            };
+          };
+          "gist.github.com" = {
+            hostname = "gist.github.com";
             user = "git";
             identityFile = "/home/likhner/.ssh/github";
             extraOptions = {
@@ -99,7 +103,7 @@ in
           '';
         };
       };
-      stateVersion = "22.11";
+      stateVersion = "24.11";
     };
   };
 }

@@ -4,6 +4,8 @@
   imports =
     [
       <nixos-hardware/common/pc/ssd/default.nix>
+      <nixos-hardware/common/cpu/intel/kaby-lake/cpu-only.nix>
+      <nixos-hardware/common/gpu/nvidia/pascal/default.nix>
       ./hardware-configuration.nix
       ./software.nix
       ./gnome.nix
@@ -38,6 +40,14 @@
     firewall = {
       enable = true;
       allowPing = false;
+      extraCommands = ''
+        ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+        ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+      '';
+      extraStopCommands = ''
+        ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+        ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+      '';
     };
   };
 
@@ -46,36 +56,29 @@
   services = {
     xserver = {
       enable = true;
-      layout = "us";
       videoDrivers = [ "nvidia" ];
       screenSection = ''
         Option "CustomEDID" "HDMI-0:/home/likhner/.local/share/EDID.bin"
       '';
+      excludePackages = with pkgs; [
+        xterm
+      ];
     };
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
-      config.pipewire = {
-        "context.properties" = {
-          "default.clock.allowed-rates" = [ 44100 48000 96000 192000 ];
-          "default.clock.quantum-limit" = 1024;
-          "default.clock.max-quantum" = 1024;
-        };
-      };
     };
     ntp.enable = true;
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         vaapiVdpau
       ];
-      driSupport32Bit = true;
       extraPackages32 = with pkgs; [
         vaapiVdpau
       ];
@@ -100,8 +103,5 @@
   # workaround nixpkgs#169245
   environment.sessionVariables.LIBVA_DRIVER_NAME = "vdpau";
 
-  system = {
-    stateVersion = "22.11";
-    autoUpgrade.enable = true;
-  };
+  system.stateVersion = "24.11";
 }
