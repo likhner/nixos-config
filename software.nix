@@ -19,12 +19,12 @@ in {
     aspellDicts.ru
     aspellDicts.lv
     bash-completion
+    unstable.chromium
     bind
     exfat
     f2fs-tools
     git
     gnupg
-    unstable.google-chrome
     helvum
     mc
     nettools
